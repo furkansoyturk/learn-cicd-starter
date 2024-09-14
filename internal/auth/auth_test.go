@@ -11,7 +11,7 @@ func TestGetAPIKeySuccess(t *testing.T) {
 	authHeader.Add("Authorization", "ApiKey 12345")
 
 	got, _ := GetAPIKey(authHeader)
-	want := "123456"
+	want := "12345"
 	if !reflect.DeepEqual(want, got) {
 		t.Fatalf("expected: %v, got: %v", want, got)
 	}
