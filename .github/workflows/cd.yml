@@ -36,4 +36,4 @@ jobs:
         run: gcloud builds submit --tag europe-west10-docker.pkg.dev/sunlit-form-435718-p4/notely-ar-repo/notely:latest .
 
       - name: Deploy to Cloud Run
-        run: gcloud run deploy notely --image europe-west10-docker.pkg.dev/sunlit-form-435718-p4/notely-ar-repo/notely:latest --region europe-west10 --allow-unauthenticated --project 148276552940 --max-instances=1
+        run: gcloud run deploy notely --image europe-west10-docker.pkg.dev/sunlit-form-435718-p4/notely-ar-repo/notely:latest --region europe-west10 --allow-unauthenticated --project sunlit-form-435718-p4 --max-instances=1
