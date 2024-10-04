@@ -5,9 +5,11 @@ on:
     branches: [main]
 
 jobs:
-  tests:
+  deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
       - name: Check out code
@@ -34,6 +36,12 @@ jobs:
 
       - name: Build and push Docker image
         run: gcloud builds submit --tag europe-west10-docker.pkg.dev/sunlit-form-435718-p4/notely-ar-repo/notely:latest .
+
+      - name: Install goose
+        run: go install github.com/pressly/goose/v3/cmd/goose@latest
+
+      - name: Run migrations
+        run: ./scripts/migrateup.sh
 
       - name: Deploy to Cloud Run
         run: gcloud run deploy notely --image europe-west10-docker.pkg.dev/sunlit-form-435718-p4/notely-ar-repo/notely:latest --region europe-west10 --allow-unauthenticated --project sunlit-form-435718-p4 --max-instances=1
